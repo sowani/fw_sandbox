@@ -1,8 +1,8 @@
 #!/bin/bash
 
-DEFAULT_UPDATE_SOURCE_LOCATION='/home/test/tmp/fwsim/fwupdate'
-DEFAULT_UPDATE_DESTINATION='/home/test/tmp/fwsim/master'
-DEFAULT_BACKUP_LOCATION='/home/test/tmp/fwsim/fwbackup'
+DEFAULT_UPDATE_SOURCE_LOCATION='/home/test/tmp/fw_sandbox/fwsim/fwupdate'
+DEFAULT_UPDATE_DESTINATION='/home/test/tmp/fw_sandbox/fwsim/master'
+DEFAULT_BACKUP_LOCATION='/home/test/tmp/fw_sandbox/fwsim/fwbackup'
 DEFAULT_WORK_DIRECTORY='/tmp/fw'
 DEFAULT_WAIT=5
 result=0
