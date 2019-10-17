@@ -19,8 +19,9 @@ DEFAULT_WAIT=5
 # Result of update process.
 result=0
 
-dateStr=`date +%Y%m%d-%H%M%S`
-BACKUP_DIR=$DEFAULT_BACKUP_LOCATION/$dateStr
+dateStr1=`date +%Y%m%d-%H%M%S`
+dateStr2=`date -Iseconds`
+BACKUP_DIR=$DEFAULT_BACKUP_LOCATION/$dateStr1
 BACKUP_IMAGE=$DEFAULT_UPDATE_SOURCE_LOCATION/fwimage.tar
 
 mkdir -p $DEFAULT_WORK_DIRECTORY
@@ -88,10 +89,10 @@ ret=$?
 if [ $ret -ne 0 ]
 then
   #echo "not running"
-  ret_val = 1
+  ret_val=1
 else
   #echo "running"
-  ret_val = 0
+  ret_val=0
 fi
 result=`expr $result + $ret_val`
 
@@ -100,10 +101,10 @@ ret=$?
 if [ $ret -ne 0 ]
 then
   #echo "not running"
-  ret_val = 1
+  ret_val=1
 else
   #echo "running"
-  ret_val = 0
+  ret_val=0
 fi
 result=`expr $result + $ret_val`
 echo "done."
@@ -112,4 +113,6 @@ echo "done."
 \rm -rf $DEFAULT_WORK_DIRECTORY
 
 # Save update result.
-echo $result:$dateStr > $BACKUP_DIR/result
+updTime=`date -d$dateStr2 +%s`
+echo $result:$updTime > $DEFAULT_BACKUP_LOCATION/result
+echo $dateStr1 >> $DEFAULT_BACKUP_LOCATION/result
