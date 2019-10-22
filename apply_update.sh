@@ -77,11 +77,11 @@ echo "done."
 
 # Start all service processes.
 echo -n "Starting service processes ... "
-/etc/init.d/agent1 start
-/etc/init.d/agent2 start
+#/etc/init.d/agent1 start
+#/etc/init.d/agent2 start
 echo "done."
 
-echo -n "Checking for running processes ... "
+echo -n "Checking for restarted processes ... "
 # Wait for some time to check if service processes are still running.
 sleep $DEFAULT_WAIT
 /etc/init.d/agent1 status >& /dev/null
