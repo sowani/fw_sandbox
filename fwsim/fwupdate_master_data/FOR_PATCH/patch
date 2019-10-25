@@ -1,0 +1,25 @@
+diff -Naur 1/bin/hello.sh 2/bin/hello.sh
+--- 1/bin/hello.sh	2019-10-01 10:59:55.504905868 +0530
++++ 2/bin/hello.sh	2019-10-25 15:23:48.785113664 +0530
+@@ -1,3 +1,5 @@
+ #!/bin/bash
+ 
+ echo "hello script"
++
++# Added a line to test patch
+diff -Naur 1/config/gloss.json 2/config/gloss.json
+--- 1/config/gloss.json	2019-10-01 11:05:34.006919363 +0530
++++ 2/config/gloss.json	2019-10-25 15:25:01.705691258 +0530
+@@ -3,6 +3,7 @@
+   {
+     "title": "example glossary",
+     "pageCount": 100,
++    "patchVerifier" : "Added this line to test patch.",
+     "GlossDiv":
+     {
+       "title": "S",
+diff -Naur 1/data/newfile.txt 2/data/newfile.txt
+--- 1/data/newfile.txt	1970-01-01 05:30:00.000000000 +0530
++++ 2/data/newfile.txt	2019-10-25 15:25:28.241911720 +0530
+@@ -0,0 +1 @@
++New file to test patch.
