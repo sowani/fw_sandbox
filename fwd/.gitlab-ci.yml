@@ -1,0 +1,50 @@
+image: ubuntu:18.04
+
+before_script:
+  - export SHA=${CI_COMMIT_SHA:0:7}
+  - export RELEASE_NAME=$(date -u "+ota_core_%Y-%m-%d_%H:%M:%S_UTC_${SHA}.zip")
+  - export IMAGE_URL=gitlab.git.katerra.com/IntelligentSystems/kes/kes.ota-core.lib
+  - export IMAGE_COMMIT=${IMAGE_URL}:${SHA}
+  - export IMAGE_LATEST=${IMAGE_URL}:latest
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - apt-get update -y
+    - apt-get install -y build-essential
+    - echo "Building OTA core library ..."
+    - make --always-make --keep-going
+  artifacts:
+    untracked: true
+    expire_in: 2 days
+
+build-docker:
+  image: docker:latest
+  services:
+    - docker:dind
+  stage: build
+  when: manual
+  script:
+    - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" ${CI_REGISTRY}
+    - docker build -t ${IMAGE_COMMIT} .
+    - docker push ${IMAGE_COMMIT}
+    - docker tag ${IMAGE_COMMIT} ${IMAGE_LATEST}
+    - docker push ${IMAGE_LATEST}
+
+deploy:
+  stage: deploy
+  dependencies:
+    - build
+  script:
+    - apt-get update -y
+    - apt-get install -y build-essential zip
+    - make install
+    - zip -r ${RELEASE_NAME} lib include scripts
+  artifacts:
+    expire_in: 1 month
+    paths:
+      - ota_core_*

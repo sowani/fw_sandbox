@@ -1,0 +1,1 @@
+export LD_LIBRARY_PATH=/home/test/tmp/json_sandbox/json-c/lib:$LD_LIBRARY_PATH
